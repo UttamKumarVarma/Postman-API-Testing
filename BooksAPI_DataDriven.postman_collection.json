@@ -1,0 +1,203 @@
+{
+	"info": {
+		"_postman_id": "0a182c5d-e5c1-4e44-8ebd-99094c3e0a33",
+		"name": "BooksAPI_DataDriven",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25809818"
+	},
+	"item": [
+		{
+			"name": "ToGetAccessToken",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"clientName\": \"Uttam\",\n \"clientEmail\": \"uttam@example.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://simple-books-api.glitch.me/api-clients/",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"api-clients",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SubmitOrder",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"// We are using files that are present in this path /Users/uttam/Postman",
+							"",
+							"",
+							"pm.test(\"Validating Status Code\",()=>{",
+							"pm.response.to.have.status(201);",
+							"});",
+							"",
+							"var JsonData= JSON.parse(responseBody);",
+							"pm.environment.set(\"orderID_env\",JsonData.orderId);",
+							"",
+							"",
+							"console.log(\"Hello, World!\"+ \" -\"+JsonData.orderId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "//Here we are using JSON or CSV file to receive data\n{\n \"bookId\": \"{{BookID}}\",\n \"customerName\": \"{{CustomerName}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://simple-books-api.glitch.me/orders",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetOrderDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"var jsonData= JSON.parse(responseBody);",
+							"",
+							"pm.test(\"Validating status code and OrderID\",()=>{",
+							"",
+							"//pm.response.eql(200);",
+							"pm.expect(jsonData.id).eql(pm.environment.get(\"orderID_env\"));",
+							"",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://simple-books-api.glitch.me//orders/{{orderID_env}}",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"",
+						"orders",
+						"{{orderID_env}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteORDER",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// We are using files that are present in this path /Users/uttam/Postman",
+							"",
+							"",
+							"",
+							"//Deleting the environment variable inorder to reduce the memory usage.",
+							"pm.environment.unset(\"orderID_env\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://simple-books-api.glitch.me/orders/{{orderID_env}}",
+					"protocol": "https",
+					"host": [
+						"simple-books-api",
+						"glitch",
+						"me"
+					],
+					"path": [
+						"orders",
+						"{{orderID_env}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "779ad05565004a596a35375be8d8c6861254472f0efc2010100707ca93dd23ac",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

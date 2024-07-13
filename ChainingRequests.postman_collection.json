@@ -1,0 +1,229 @@
+{
+	"info": {
+		"_postman_id": "326f7078-6df4-4dc7-bad8-2e1276245168",
+		"name": "ChainingRequests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25809818"
+	},
+	"item": [
+		{
+			"name": "CreatingUser Copy",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//here generating random gmail and names",
+							"",
+							"//this method helps to generate different strings all the times",
+							"var random= Math.random().toString(36).substring(2);",
+							"",
+							"var userName= \"jim\"+random;",
+							"var userEmail=\"jim\"+random+\"@gmail.com\";",
+							"",
+							"pm.environment.set(\"user_env\",userName);",
+							"pm.environment.set(\"email_env\",userEmail);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData=JSON.parse(responseBody);",
+							"",
+							"pm.environment.set(\"userID_Collection\",jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"name\": \"{{user_env}}\",\n \"gender\": \"male\",\n \"email\": \"{{email_env}}\",\n \"status\": \"inactive\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserDetails Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//validating JSON data in the response that we used in POST request",
+							"pm.test(\"Testing values of JSON fileds\",()=> {",
+							"",
+							"    var jsonData= pm.response.json();",
+							"    pm.expect(jsonData.id).to.eql(userID_Collection);",
+							"}",
+							"",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users/{{userID_Collection}}",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{userID_Collection}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateForDetails Copy",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"name\": \"uttam\",\n \"email\": \"uttam@gmail.com\",\n \"status\": \"active\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users/{{userID_Collection}}",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{userID_Collection}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteUserDetails Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"//Deleting all the variables",
+							"pm.environment.unset(\"user_env\");",
+							"pm.environment.unset(\"email_env\");",
+							"pm.environment.unset(\"userID_Collection\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users/{{userID_Collection}}",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{userID_Collection}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "1a7c7e3dc6a3a881cc8128a66dd8d102ed1ea5061ab30ff6344297defae26194",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": ""
+		}
+	]
+}

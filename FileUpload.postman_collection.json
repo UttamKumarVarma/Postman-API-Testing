@@ -1,0 +1,71 @@
+{
+	"info": {
+		"_postman_id": "46347838-2e3d-4337-9762-3b2f19b08c9c",
+		"name": "FileUpload",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25809818"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Program Files/Demo.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/uploadFile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"uploadFile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MultipleFileUpload",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": [
+								"/C:/Program Files/Demo.txt",
+								"/C:/Program Files/Demo2.txt"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/uploadMultipleFiles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"uploadMultipleFiles"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

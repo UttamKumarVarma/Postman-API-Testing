@@ -1,0 +1,252 @@
+{
+	"info": {
+		"_postman_id": "a7f16125-a899-41c4-a804-0bb966c5e85c",
+		"name": "LearningVariables",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25809818"
+	},
+	"item": [
+		{
+			"name": "New Folder",
+			"item": [
+				{
+					"name": "UsingGlobalVariable",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//creating gloabl variable from pre-request",
+									"pm.globals.set(\"userId_global\",\"4\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Getting the initiated variables",
+									"console.log(pm.globals.get(\"userId_global\"));",
+									"",
+									"",
+									"",
+									"",
+									"//Here we are unsetting/deleting global variable that is initialized in pre-request script",
+									"pm.globals.unset(\"userId_global\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_global}}/students/{{userId_global}}",
+							"host": [
+								"{{url_global}}"
+							],
+							"path": [
+								"students",
+								"{{userId_global}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UsingCollectionLevelVariable",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//creating a collection variable",
+									"pm.collectionVariables.set(\"userID_CollectionLevel\",\"2\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"",
+									"//Getting the initiated variables",
+									"console.log(pm.collectionVariables.get(\"userID_CollectionLevel\"));",
+									"",
+									"",
+									"",
+									"",
+									"//Here we are unsetting/deleting collection variable that is initialized in pre-request script",
+									"pm.collectionVariables.unset(\"userID_CollectionLevel\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_collection}}/students/{{userID_CollectionLevel}}",
+							"host": [
+								"{{url_collection}}"
+							],
+							"path": [
+								"students",
+								"{{userID_CollectionLevel}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EnvironmentVariableQA",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//creating environment variable",
+									"",
+									"pm.environment.set(\"userId_QaEnv\",\"3\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"",
+									"//Getting the initiated variables",
+									"console.log(pm.environment.get(\"userId_QaEnv\"));",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"//Here we are unsetting/deleting environment variable that is initialized in pre-request script",
+									"",
+									"pm.environment.unset(\"userId_QaEnv\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_qa_env}}/students/{{userId_QaEnv}}",
+							"host": [
+								"{{url_qa_env}}"
+							],
+							"path": [
+								"students",
+								"{{userId_QaEnv}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EnvironmentVariableDEV",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_dev_env}}/students",
+							"host": [
+								"{{url_dev_env}}"
+							],
+							"path": [
+								"students"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LocalVaribles",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//Learning Local Variables",
+									"//In local Variables we can declare them in pre-requests only so that those variables can be ///used while sending the requests.",
+									"",
+									"",
+									"pm.variables.set(\"url_local\",\"http://localhost:3000\");",
+									"console.log(pm.environment.get(\"url_local\"));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"",
+									"//Getting the initiated variables",
+									"console.log(pm.variables.get(\"url_local\"));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_local}}/students/2",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"students",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url_collection",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
